@@ -5,10 +5,13 @@ import (
 	"strings"
 )
 
+// Events provides methods for getting events.
 type Events object
 
+// Block provides methods for getting block events.
 type Block object
 
+// Hit contains the information for a block event.
 type Hit struct {
 	PositionX   int
 	PositionY   int
@@ -19,15 +22,18 @@ type Hit struct {
 	BlockTypeId int
 }
 
+// Block returns the block object.
 func (obj Events) Block() Block {
 	return Block(obj)
 }
 
+// Clear clears the event queue.
 func (obj Events) Clear() error {
 	s := "events.clear()"
 	return object(obj).send(s)
 }
 
+// Hits returns the current block events as a slice.
 func (obj Block) Hits() (hits []Hit, err error) {
 	s := "events.block.hits()"
 	hits = make([]Hit, 0)

@@ -6,8 +6,10 @@ import (
 	"strings"
 )
 
+// Player provides methods to manipulate the player ("Steve").
 type Player object
 
+// GetTile returns the world coordinates of the player's location.
 func (obj Player) GetTile() (x, y, z int, err error) {
 	s := "player.getTile()"
 	x = 0
@@ -34,11 +36,14 @@ func (obj Player) GetTile() (x, y, z int, err error) {
 	return
 }
 
+// SetTile moves the player the given world coordinates.
 func (obj Player) SetTile(x, y, z int) error {
 	s := fmt.Sprintf("player.setTile(%d,%d,%d)", x, y, z)
 	return object(obj).send(s)
 }
 
+// GetPos returns the player's position. Note the the player position
+// is more granular than a world position.
 func (obj Player) GetPos() (xf, yf, zf float64, err error) {
 	s := "player.getPos()"
 	xf = 0.0
@@ -63,6 +68,8 @@ func (obj Player) GetPos() (xf, yf, zf float64, err error) {
 	return
 }
 
+// SetPos sets the player's position. Note that the player position
+// is more granular than a world position.
 func (obj Player) SetPos(xf, yf, zf float64) error {
 	s := fmt.Sprintf("player.setPos(%f,%f,%f)", xf, yf, zf)
 	return object(obj).send(s)
