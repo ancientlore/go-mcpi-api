@@ -9,7 +9,7 @@ func PyramidHere(c Connection, height int) error {
 		return err
 	}
 
-	err = Pyramid(c, x, y, z, height, SANDSTONE, 0, &PyramidSettings{Floor: true})
+	err = Pyramid(c, x, y, z, height, SANDSTONE, 2, &PyramidSettings{Floor: true})
 	if err != nil {
 		return err
 	}
@@ -24,7 +24,9 @@ func PyramidHere(c Connection, height int) error {
 
 // PyramidSettings is used to specify additional information controlling rendering a pyramid.
 type PyramidSettings struct {
-	Floor bool // Draws a floor under the pyramid
+	Floor            bool // Draws a floor under the pyramid
+	FloorBlockTypeId int  // Block ID to use for the floor
+	FloorBlockData   int  // Block data to use for the floor
 }
 
 // Pyramid draws a pyramid of the given height at the specified location using the block type and
@@ -37,26 +39,30 @@ func Pyramid(c Connection, x, y, z, height, blockTypeId, blockData int, settings
 		settings = &PyramidSettings{}
 	}
 	for iy = height + y; iy >= y; iy-- {
-		err = c.World().SetBlocks(x-dim, iy, z-dim, x-dim, iy, z+dim, SANDSTONE, 0)
+		err = c.World().SetBlocks(x-dim, iy, z-dim, x-dim, iy, z+dim, blockTypeId, blockData)
 		if err != nil {
 			return err
 		}
-		err = c.World().SetBlocks(x+dim, iy, z-dim, x+dim, iy, z+dim, SANDSTONE, 0)
+		err = c.World().SetBlocks(x+dim, iy, z-dim, x+dim, iy, z+dim, blockTypeId, blockData)
 		if err != nil {
 			return err
 		}
-		err = c.World().SetBlocks(x-dim, iy, z-dim, x+dim, iy, z-dim, SANDSTONE, 0)
+		err = c.World().SetBlocks(x-dim, iy, z-dim, x+dim, iy, z-dim, blockTypeId, blockData)
 		if err != nil {
 			return err
 		}
-		err = c.World().SetBlocks(x-dim, iy, z+dim, x+dim, iy, z+dim, SANDSTONE, 0)
+		err = c.World().SetBlocks(x-dim, iy, z+dim, x+dim, iy, z+dim, blockTypeId, blockData)
 		if err != nil {
 			return err
 		}
 		dim++
 	}
 	if settings.Floor {
-		err = c.World().SetBlocks(x-dim, iy, z-dim, x+dim, iy, z+dim, SANDSTONE, 0)
+		if settings.FloorBlockTypeId <= 0 {
+			settings.FloorBlockTypeId = blockTypeId
+			settings.FloorBlockData = blockData
+		}
+		err = c.World().SetBlocks(x-dim, iy, z-dim, x+dim, iy, z+dim, settings.FloorBlockTypeId, settings.FloorBlockData)
 		if err != nil {
 			return err
 		}

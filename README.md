@@ -17,7 +17,7 @@ Example:
 		log.Print(err)
 	}
 
-Block types are 0-108. See the [Micraft Wiki](http://www.minecraftwiki.net/wiki/Data_values_(Pocket_Edition)) for information on block values.
+Block types are 0-108. See the [Minecraft Wiki](http://www.minecraftwiki.net/wiki/Data_values_(Pocket_Edition)) for information on block values.
 
 Block data is 0-15, and is used to specify extra characteristics like wool color.
 

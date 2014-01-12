@@ -16,7 +16,7 @@ Example:
 		log.Print(err)
 	}
 
-Block types are 0-255. See the Micraft Wiki for information on block values.
+Block types are 0-255. See the Minecraft Wiki for information on block values.
 
 Block data is 0-15, and is used to specify extra characteristics like wool color.
 
