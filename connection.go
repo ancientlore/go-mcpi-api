@@ -3,7 +3,7 @@ package mcpiapi
 import (
 	"bufio"
 	"fmt"
-	"log"
+//	"log"
 	"net"
 	"strings"
 	"time"
@@ -91,16 +91,16 @@ func (obj *Connection) receive() (string, error) {
 func (obj *Connection) process() {
 	for msg := range obj.msgBuf {
 		if msg.text == "XXX" {
-			log.Print("Close request received")
+			// log.Print("Close request received")
 			msg.rspBuf <- response{"OK", nil}
 			close(obj.msgBuf)
 			return
 		}
 		err := obj.send(msg.text)
-		log.Printf("snd [%s] err [%v]", msg.text, err)
+		// log.Printf("snd [%s] err [%v]", msg.text, err)
 		if msg.rcv {
 			rsp, err := obj.receive()
-			log.Printf("rcv [%s] err [%v]", rsp, err)
+			// log.Printf("rcv [%s] err [%v]", rsp, err)
 			msg.rspBuf <- response{rsp, err}
 		} else {
 			msg.rspBuf <- response{"", err}
