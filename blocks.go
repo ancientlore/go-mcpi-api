@@ -115,3 +115,209 @@ const (
 	UPDATE_GAME_BLOCK_2  = 249 // added
 	LAST                 = 255 // added
 )
+
+// IsWater returns true if the given block type is any kind of water.
+func IsWater(blockTypeId int) bool {
+	switch blockTypeId {
+	case WATER_FLOWING, WATER_STATIONARY:
+		return true
+	default:
+		return false
+	}
+}
+
+// IsLava returns true if the given block type is any kind of lava.
+func IsLava(blockTypeId int) bool {
+	switch blockTypeId {
+	case LAVA_FLOWING, LAVA_STATIONARY:
+		return true
+	default:
+		return false
+	}
+}
+
+// IsFire returns true if the given block type is fire.
+func IsFire(blockTypeId int) bool {
+	switch blockTypeId {
+	case FIRE:
+		return true
+	default:
+		return false
+	}
+}
+
+// IsAir returns true if the given block type is air.
+func IsAir(blockTypeId int) bool {
+	switch blockTypeId {
+	case AIR:
+		return true
+	default:
+		return false
+	}
+}
+
+// IsStairs returns true if the given block type is any kind of stairs.
+func IsStairs(blockTypeId int) bool {
+	switch blockTypeId {
+	case STAIRS_WOOD, STAIRS_COBBLESTONE, BRICK_STAIRS, STONE_BRICK_STAIRS, NETHER_BRICK_STAIRS, SANDSTONE_STAIRS, SPRUCE_WOOD_STAIRS, BIRCH_WOOD_STAIRS, JUNGLE_WOOD_STAIRS, QUARTZ_STAIRS:
+		return true
+	default:
+		return false
+	}
+}
+
+// IsSlab returns true if the given block type is any kind of slab, which is half-height.
+func IsSlab(blockTypeId int) bool {
+	switch blockTypeId {
+	case STONE_SLAB, WOODEN_SLAB:
+		return true
+	default:
+		return false
+	}
+}
+
+// BaseMaterial returns a block ID of the base material for the given type.
+// The intent of the function is to determine the base type of stairs and
+// other manufactured objects.
+func BaseMaterial(blockTypeId int) int {
+	switch blockTypeId {
+	case AIR:
+	case STONE:
+	case GRASS:
+		return DIRT
+	case DIRT:
+	case COBBLESTONE:
+	case WOOD_PLANKS:
+		return WOOD
+	case SAPLING:
+	case BEDROCK:
+	case WATER_FLOWING:
+	case WATER_STATIONARY:
+	case LAVA_FLOWING:
+	case LAVA_STATIONARY:
+	case SAND:
+	case GRAVEL:
+	case GOLD_ORE:
+	case IRON_ORE:
+	case COAL_ORE:
+	case WOOD:
+	case LEAVES:
+	case SPONGE:
+	case GLASS:
+	case LAPIS_LAZULI_ORE:
+	case LAPIS_LAZULI_BLOCK:
+	case SANDSTONE:
+	case BED:
+	case POWERED_RAIL:
+	case COBWEB:
+	case GRASS_TALL:
+	case DEAD_BUSH:
+	case WOOL:
+	case FLOWER_YELLOW:
+	case FLOWER_CYAN:
+	case MUSHROOM_BROWN:
+	case MUSHROOM_RED:
+	case GOLD_BLOCK:
+	case IRON_BLOCK:
+	case STONE_SLAB_DOUBLE:
+		return STONE
+	case STONE_SLAB:
+		return STONE
+	case BRICK_BLOCK:
+	case TNT:
+	case BOOKSHELF:
+	case MOSS_STONE:
+		return STONE
+	case OBSIDIAN:
+	case TORCH:
+	case FIRE:
+	case STAIRS_WOOD:
+		return WOOD
+	case CHEST:
+	case DIAMOND_ORE:
+	case DIAMOND_BLOCK:
+	case CRAFTING_TABLE:
+	case SEEDS:
+	case FARMLAND:
+	case FURNACE_INACTIVE:
+	case FURNACE_ACTIVE:
+	case SIGN_POST:
+		return WOOD
+	case DOOR_WOOD:
+		return WOOD
+	case LADDER:
+		return WOOD
+	case RAIL:
+	case STAIRS_COBBLESTONE:
+		return COBBLESTONE
+	case WALL_SIGN:
+		return WOOD
+	case DOOR_IRON:
+		return IRON_BLOCK
+	case REDSTONE_ORE:
+	case GLOWING_REDSTONE_ORE:
+	case SNOW:
+	case ICE:
+	case SNOW_BLOCK:
+	case CACTUS:
+	case CLAY:
+	case SUGAR_CANE:
+	case FENCE:
+		return WOOD
+	case PUMPKIN:
+	case NETHERRACK:
+	case GLOWSTONE_BLOCK:
+	case JACK_O_LANTERN:
+	case CAKE_BLOCK:
+	case BEDROCK_INVISIBLE:
+	case TRAP_DOOR:
+		return WOOD
+	case STONE_BRICK:
+	case IRON_BARS:
+	case GLASS_PANE:
+		return GLASS
+	case MELON:
+	case PUMPKIN_STEM:
+	case MELON_STEM:
+	case FENCE_GATE:
+		return WOOD
+	case BRICK_STAIRS:
+		return BRICK_BLOCK
+	case STONE_BRICK_STAIRS:
+		return STONE_BRICK
+	case NETHER_BRICK:
+	case NETHER_BRICK_STAIRS:
+		return NETHER_BRICK
+	case SANDSTONE_STAIRS:
+		return SANDSTONE
+	case EMERALD_ORE:
+	case SPRUCE_WOOD_STAIRS:
+		return WOOD
+	case BIRCH_WOOD_STAIRS:
+		return WOOD
+	case JUNGLE_WOOD_STAIRS:
+		return WOOD
+	case COBBLESTONE_WALL:
+		return COBBLESTONE
+	case CARROTS:
+	case POTATO:
+	case QUARTZ_BLOCK:
+	case QUARTZ_STAIRS:
+		return QUARTZ_BLOCK
+	case WOODEN_DOUBLE_SLAB:
+		return WOOD
+	case WOODEN_SLAB:
+		return WOOD
+	case HAY_BLOCK:
+	case CARPET:
+	case BLOCK_OF_COAL:
+	case BEETROOT:
+	case STONE_CUTTER:
+	case GLOWING_OBSIDIAN:
+	case NETHER_REACTOR_CORE:
+	case UPDATE_GAME_BLOCK_1:
+	case UPDATE_GAME_BLOCK_2:
+	case LAST:
+	}
+	return blockTypeId
+}

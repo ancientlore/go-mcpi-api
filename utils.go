@@ -27,6 +27,7 @@ type PyramidSettings struct {
 	Floor            bool // Draws a floor under the pyramid
 	FloorBlockTypeId int  // Block ID to use for the floor
 	FloorBlockData   int  // Block data to use for the floor
+	ClearInside      bool // whether to clear the blocks from the inside of the pyramid
 }
 
 // Pyramid draws a pyramid of the given height at the specified location using the block type and
@@ -38,22 +39,50 @@ func Pyramid(c Connection, x, y, z, height, blockTypeId, blockData int, settings
 	if settings == nil {
 		settings = &PyramidSettings{}
 	}
+	// for stairs, automatically adjust the orientation
+	d1, d2, d3, d4 := blockData, blockData, blockData, blockData
+	if IsStairs(blockTypeId) {
+		d1 = 0
+		d2 = 1
+		d3 = 2
+		d4 = 3
+	}
 	for iy = height + y; iy >= y; iy-- {
-		err = c.World().SetBlocks(x-dim, iy, z-dim, x-dim, iy, z+dim, blockTypeId, blockData)
-		if err != nil {
-			return err
-		}
-		err = c.World().SetBlocks(x+dim, iy, z-dim, x+dim, iy, z+dim, blockTypeId, blockData)
-		if err != nil {
-			return err
-		}
-		err = c.World().SetBlocks(x-dim, iy, z-dim, x+dim, iy, z-dim, blockTypeId, blockData)
-		if err != nil {
-			return err
-		}
-		err = c.World().SetBlocks(x-dim, iy, z+dim, x+dim, iy, z+dim, blockTypeId, blockData)
-		if err != nil {
-			return err
+		if dim == 0 {
+			if IsStairs(blockTypeId) {
+				err = c.World().SetBlocks(x, iy, z, x, iy, z, BaseMaterial(blockTypeId), 0)
+				if err != nil {
+					return err
+				}
+			} else {
+				err = c.World().SetBlocks(x, iy, z, x, iy, z, blockTypeId, blockData)
+				if err != nil {
+					return err
+				}
+			}
+		} else {
+			err = c.World().SetBlocks(x-dim, iy, z-dim, x-dim, iy, z+dim, blockTypeId, d1)
+			if err != nil {
+				return err
+			}
+			err = c.World().SetBlocks(x+dim, iy, z-dim, x+dim, iy, z+dim, blockTypeId, d2)
+			if err != nil {
+				return err
+			}
+			err = c.World().SetBlocks(x-dim, iy, z-dim, x+dim, iy, z-dim, blockTypeId, d3)
+			if err != nil {
+				return err
+			}
+			err = c.World().SetBlocks(x-dim, iy, z+dim, x+dim, iy, z+dim, blockTypeId, d4)
+			if err != nil {
+				return err
+			}
+			if settings.ClearInside {
+				err = c.World().SetBlocks(x-dim+1, iy, z-dim+1, x+dim-1, iy, z+dim-1, AIR, 0)
+				if err != nil {
+					return err
+				}
+			}
 		}
 		dim++
 	}
@@ -61,6 +90,10 @@ func Pyramid(c Connection, x, y, z, height, blockTypeId, blockData int, settings
 		if settings.FloorBlockTypeId <= 0 {
 			settings.FloorBlockTypeId = blockTypeId
 			settings.FloorBlockData = blockData
+			if IsStairs(settings.FloorBlockTypeId) {
+				settings.FloorBlockTypeId = BaseMaterial(settings.FloorBlockTypeId)
+				settings.FloorBlockData = 0
+			}
 		}
 		err = c.World().SetBlocks(x-dim, iy, z-dim, x+dim, iy, z+dim, settings.FloorBlockTypeId, settings.FloorBlockData)
 		if err != nil {
