@@ -1,6 +1,8 @@
 package mcpiapi
 
-import ()
+import (
+	"math"
+)
 
 // PyramidHere draws a pyramid of the given height at the player's current location.
 func PyramidHere(c Connection, height int) error {
@@ -96,6 +98,49 @@ func Pyramid(c Connection, x, y, z, height, blockTypeId, blockData int, settings
 			}
 		}
 		err = c.World().SetBlocks(x-dim, iy, z-dim, x+dim, iy, z+dim, settings.FloorBlockTypeId, settings.FloorBlockData)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// DegToRad converts degrees to radians.
+func DegToRad(degrees float64) float64 {
+	return degrees * math.Pi / 180.0
+}
+
+// Arc draws an arc of radius r centered at (x, y, z) within the angles specified.
+func Arc(c Connection, x, y, z, r int, xzStartRads, xyStartRads, xzRads, xyRads float64, blockTypeId, blockData int) error {
+
+	// radians delta = 2 * pi / (2 * pi * r)
+	deltaRad := 1.0 / float64(r)
+
+	dxz := math.Min(xzStartRads, xzRads)
+	dxy := math.Min(xyStartRads, xyRads)
+	for dxz <= math.Max(xzStartRads, xzRads) || dxy <= math.Max(xyStartRads, xyRads) {
+		dx := x + int(float64(r)*math.Cos(dxy)*math.Cos(dxz))
+		dy := y + int(float64(r)*math.Sin(dxy))
+		dz := z + int(float64(r)*math.Cos(dxy)*math.Sin(dxz))
+		err := c.World().SetBlock(dx, dy, dz, blockTypeId, blockData)
+		if err != nil {
+			return err
+		}
+		if dxz <= math.Max(xzStartRads, xzRads) {
+			dxz += deltaRad
+		}
+		if dxy <= math.Max(xyStartRads, xyRads) {
+			dxy += deltaRad
+		}
+	}
+	return nil
+}
+
+// Sphere draws a sphere of the given radius r around the coordinates (x, y, z).
+func Sphere(c Connection, x, y, z, r, blockTypeId, blockData int) error {
+	delta := 1.0 / float64(r)
+	for d := 0.0; d <= 2.0*math.Pi; d += delta {
+		err := Arc(c, x, y, z, r, 0.0, d, 2.0*math.Pi, d, blockTypeId, blockData)
 		if err != nil {
 			return err
 		}
