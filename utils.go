@@ -118,18 +118,18 @@ func Arc(c Connection, x, y, z, r int, xzStartRads, xyStartRads, xzRads, xyRads 
 
 	dxz := math.Min(xzStartRads, xzRads)
 	dxy := math.Min(xyStartRads, xyRads)
-	for dxz <= math.Max(xzStartRads, xzRads) || dxy <= math.Max(xyStartRads, xyRads) {
-		dx := x + int(float64(r)*math.Cos(dxy)*math.Cos(dxz))
-		dy := y + int(float64(r)*math.Sin(dxy))
-		dz := z + int(float64(r)*math.Cos(dxy)*math.Sin(dxz))
+	for dxz < math.Max(xzStartRads, xzRads) || dxy < math.Max(xyStartRads, xyRads) {
+		dx := x + int(math.Ceil(float64(r)*math.Cos(dxy)*math.Cos(dxz)))
+		dy := y + int(math.Ceil(float64(r)*math.Sin(dxy)))
+		dz := z + int(math.Ceil(float64(r)*math.Cos(dxy)*math.Sin(dxz)))
 		err := c.World().SetBlock(dx, dy, dz, blockTypeId, blockData)
 		if err != nil {
 			return err
 		}
-		if dxz <= math.Max(xzStartRads, xzRads) {
+		if dxz < math.Max(xzStartRads, xzRads) {
 			dxz += deltaRad
 		}
-		if dxy <= math.Max(xyStartRads, xyRads) {
+		if dxy < math.Max(xyStartRads, xyRads) {
 			dxy += deltaRad
 		}
 	}
@@ -139,7 +139,7 @@ func Arc(c Connection, x, y, z, r int, xzStartRads, xyStartRads, xzRads, xyRads 
 // Sphere draws a sphere of the given radius r around the coordinates (x, y, z).
 func Sphere(c Connection, x, y, z, r, blockTypeId, blockData int) error {
 	delta := 1.0 / float64(r)
-	for d := 0.0; d <= 2.0*math.Pi; d += delta {
+	for d := -math.Pi / 2.0; d < math.Pi/2.0; d += delta {
 		err := Arc(c, x, y, z, r, 0.0, d, 2.0*math.Pi, d, blockTypeId, blockData)
 		if err != nil {
 			return err
