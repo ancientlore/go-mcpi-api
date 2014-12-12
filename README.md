@@ -28,3 +28,6 @@ Be sure and read the [Minecraft Pi Edition](http://pi.minecraft.net/) API speifi
 The library includes some utility functions for shapes - more may be added over time.
 
 NOTE: Events have not been tested.
+
+[![GoDoc](https://godoc.org/github.com/ancientlore/go-mcpi-api?status.svg)](https://godoc.org/github.com/ancientlore/go-mcpi-api)
+[![status](https://sourcegraph.com/api/repos/github.com/ancientlore/go-mcpi-api/.badges/status.png)](https://sourcegraph.com/github.com/ancientlore/go-mcpi-api)
