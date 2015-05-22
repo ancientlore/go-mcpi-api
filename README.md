@@ -32,4 +32,3 @@ Be sure and read the [Minecraft Pi Edition](http://pi.minecraft.net/) API speifi
 The library includes some utility functions for shapes - more may be added over time.
 
 NOTE: Events have not been tested.
-
