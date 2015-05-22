@@ -1,6 +1,10 @@
 go-mcpi-api
 ===========
 
+[![Build Status](https://travis-ci.org/ancientlore/go-mcpi-api.svg?branch=master)](https://travis-ci.org/ancientlore/go-mcpi-api)
+[![GoDoc](https://godoc.org/github.com/ancientlore/go-mcpi-api?status.svg)](https://godoc.org/github.com/ancientlore/go-mcpi-api)
+[![status](https://sourcegraph.com/api/repos/github.com/ancientlore/go-mcpi-api/.badges/status.png)](https://sourcegraph.com/github.com/ancientlore/go-mcpi-api)
+
 This library enables you to use the [Minecraft Pi Edition](http://pi.minecraft.net/) API from [Go](http://golang.org/). Each connection uses a single socket and commands are sent over channels, making it safe to use the API from different goroutines.
 
 Example:
@@ -29,5 +33,3 @@ The library includes some utility functions for shapes - more may be added over 
 
 NOTE: Events have not been tested.
 
-[![GoDoc](https://godoc.org/github.com/ancientlore/go-mcpi-api?status.svg)](https://godoc.org/github.com/ancientlore/go-mcpi-api)
-[![status](https://sourcegraph.com/api/repos/github.com/ancientlore/go-mcpi-api/.badges/status.png)](https://sourcegraph.com/github.com/ancientlore/go-mcpi-api)
