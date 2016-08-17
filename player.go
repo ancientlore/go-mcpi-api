@@ -14,7 +14,7 @@ type Player struct{
 
 // GetTile returns the world coordinates of the player's location.
 func (obj Player) GetTile() (x, y, z int, err error) {
-	s := obj.name + ".getTile()"
+	s := "player.getTile(" + obj.name + ")"
 	x = 0
 	y = 0
 	z = 0
@@ -41,14 +41,14 @@ func (obj Player) GetTile() (x, y, z int, err error) {
 
 // SetTile moves the player the given world coordinates.
 func (obj Player) SetTile(x, y, z int) error {
-	s := fmt.Sprintf("%s.setTile(%d,%d,%d)",obj.name, x, y, z)
+	s := fmt.Sprintf("player.setTile(%s,%d,%d,%d)",obj.name, x, y, z)
 	return object(obj.obj).send(s)
 }
 
 // GetPos returns the player's position. Note the the player position
 // is more granular than a world position.
 func (obj Player) GetPos() (xf, yf, zf float64, err error) {
-	s := obj.name + ".getPos()"
+	s := "player.getPos(" + obj.name + ")"
 	xf = 0.0
 	yf = 0.0
 	zf = 0.0
@@ -74,6 +74,6 @@ func (obj Player) GetPos() (xf, yf, zf float64, err error) {
 // SetPos sets the player's position. Note that the player position
 // is more granular than a world position.
 func (obj Player) SetPos(xf, yf, zf float64) error {
-	s := fmt.Sprintf("%s.setPos(%f,%f,%f)",obj.name, xf, yf, zf)
+	s := fmt.Sprintf("player.setPos(%s,%f,%f,%f)",obj.name, xf, yf, zf)
 	return object(obj.obj).send(s)
 }

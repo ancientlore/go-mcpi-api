@@ -123,6 +123,7 @@ func (obj object) send(s string) error {
 	defer close(rspBuf)
 	msg := message{s, rspBuf, false}
 	obj <- msg
+	//fmt.Println(msg)
 	rsp := <-rspBuf
 	return rsp.err
 }
@@ -134,6 +135,7 @@ func (obj object) sendReceive(s string) (string, error) {
 	defer close(rspBuf)
 	msg := message{s, rspBuf, true}
 	obj <- msg
+	//fmt.Println(msg)
 	rsp := <-rspBuf
 	return rsp.text, rsp.err
 }
