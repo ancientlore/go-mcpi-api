@@ -26,6 +26,7 @@ type message struct {
 type Connection struct {
 	conn   net.Conn
 	msgBuf chan message
+	name   string
 }
 
 // Chat returns the chat object.
@@ -45,7 +46,8 @@ func (obj *Connection) Camera() Camera {
 
 // Player returns the player object.
 func (obj *Connection) Player() Player {
-	return Player(obj.msgBuf)
+	p := Player{obj.msgBuf, obj.name}
+	return Player(p)
 }
 
 // Events returns the events object.
@@ -54,9 +56,10 @@ func (obj *Connection) Events() Events {
 }
 
 // Open establishes a connection to the given host over port 4711.
-func (obj *Connection) Open(host string) error {
+func (obj *Connection) Open(host string, name string) error {
 	var err error
 	obj.conn, err = net.Dial("tcp", host+":4711")
+	obj.name = name
 	if err != nil {
 		return err
 	}
