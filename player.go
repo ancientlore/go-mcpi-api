@@ -15,6 +15,7 @@ type Player struct{
 // GetTile returns the world coordinates of the player's location.
 func (obj Player) GetTile() (x, y, z int, err error) {
 	s := obj.name + ".getTile()"
+	fmt.Printf("%s\n",s)
 	x = 0
 	y = 0
 	z = 0
