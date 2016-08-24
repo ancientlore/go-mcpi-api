@@ -1,34 +1,31 @@
-go-mcpi-api
-===========
+This is a library forked from [ancientlore](https://github.com/ancientlore/go-mcpi-api).
 
-[![Build Status](https://travis-ci.org/ancientlore/go-mcpi-api.svg?branch=master)](https://travis-ci.org/ancientlore/go-mcpi-api)
-[![GoDoc](https://godoc.org/github.com/ancientlore/go-mcpi-api?status.svg)](https://godoc.org/github.com/ancientlore/go-mcpi-api)
-[![status](https://sourcegraph.com/api/repos/github.com/ancientlore/go-mcpi-api/.badges/status.png)](https://sourcegraph.com/github.com/ancientlore/go-mcpi-api)
+It can enable you to use the [Minecraft PI](http://pi.minecraft.net/) Edition API with [Go](https://golang.org/).
 
-This library enables you to use the [Minecraft Pi Edition](http://pi.minecraft.net/) API from [Go](http://golang.org/). Each connection uses a single socket and commands are sent over channels, making it safe to use the API from different goroutines.
+----------
+**What is MCPI ?** 
 
-Example:
+> MCPI is a API which can let you control Minecraft with code.
+> It's original edition was written with python, you can learn it [here](https://github.com/teachthenet/TeachCraft-Challenges).
 
-	var c mcpiapi.Connection
-	c.Open("192.168.1.115")
-	defer c.Close()
+**Can I using it at a normal edition Minecraft ?**
 
-	go func() { c.Chat().Post("Hello, World!") }()
-	go func() { c.Chat().Post("Hello again!") }()
+> Yes, you can. You can refer to [this project](https://github.com/teachthenet/TeachCraft-Server).
 
-	err = c.World().SetBlock(0, 0, 0, mcpiapi.GOLD_BLOCK, 0)
-	if err != nil {
-		log.Print(err)
-	}
+**What's difference between this project with the original one ?**
 
-Block types are 0-108. See the [Minecraft Wiki](http://www.minecraftwiki.net/wiki/Data_values_(Pocket_Edition)) for information on block values.
+> The original project can only be used in single-player mode. 
+> However, my edition can be used in both single-player mode and multiple-players mode.
 
-Block data is 0-15, and is used to specify extra characteristics like wool color.
+**What's difference when using this project ?**
 
-Regarding the coordinate system, (0,0,0) is where the world was spawned and is sea level. (X,Z) represents the ground plane while Y points to the sky.
+> The only difference is Open().
+> You have to add the player name when using Open().
+> Example : `c.Open("140.113.195.200","Frozen")`
+	
 
-Be sure and read the [Minecraft Pi Edition](http://pi.minecraft.net/) API speificication which is included in the installation at `mcpi/api/spec/mcpi_protocol_spec.txt`.
 
-The library includes some utility functions for shapes - more may be added over time.
+----------
+**Installation**
 
-NOTE: Events have not been tested.
+    go get github.com/FrozenKP/go-mcpi-api
