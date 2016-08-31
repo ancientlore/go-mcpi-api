@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Player provides methods to manipulate the player ("Steve").
+// Player provides methods to manipulate the player you typed.
 type Player struct{
 	obj object
 	name string
