@@ -55,7 +55,7 @@ func (obj *Connection) Events() Events {
 	return Events(obj.msgBuf)
 }
 
-// Open establishes a connection to the given host over port 4711.
+// Open establishes a connection to the given host over port 4711 with player name.
 func (obj *Connection) Open(host string, name string) error {
 	var err error
 	obj.conn, err = net.Dial("tcp", host+":4711")
