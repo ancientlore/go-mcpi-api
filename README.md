@@ -2,6 +2,7 @@ This is a library forked from [ancientlore](https://github.com/ancientlore/go-mc
 
 It can enable you to use the [Minecraft PI](http://pi.minecraft.net/) Edition API with [Go](https://golang.org/).
 
+中文版本README: [用go語言翻轉Minecraft - go-mcpi-api](http://holacode.blogspot.tw/2016/08/go-gominecraft-go-mcpi-api.html)
 ----------
 **What is MCPI ?** 
 
