@@ -1,3 +1,5 @@
+[![GoDoc](https://godoc.org/github.com/FrozenKP/go-mcpi-api?status.svg)](https://godoc.org/github.com/FrozenKP/go-mcpi-api)
+
 中文版本README: [用go語言翻轉Minecraft - go-mcpi-api](http://holacode.blogspot.tw/2016/08/go-gominecraft-go-mcpi-api.html)
 
 This is a library forked from [ancientlore](https://github.com/ancientlore/go-mcpi-api).
