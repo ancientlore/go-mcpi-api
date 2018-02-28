@@ -77,7 +77,7 @@ func (obj World) GetHeight(x, z int) (y int, err error) {
 	return
 }
 
-// Settng is used to enable or disable various Minecraft world settings.
+// Setting is used to enable or disable various Minecraft world settings.
 func (obj World) Setting(key string, enable bool) error {
 	var s string
 	val := 0

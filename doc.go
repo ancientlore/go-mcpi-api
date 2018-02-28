@@ -1,5 +1,5 @@
 /*
-This package enables you to use the Minecraft Pi Edition API from Go. Each connection uses a single socket
+Package mcpiapi enables you to use the Minecraft Pi Edition API from Go. Each connection uses a single socket
 and commands are sent over channels, making it safe to use the API from different goroutines.
 
 Example:
